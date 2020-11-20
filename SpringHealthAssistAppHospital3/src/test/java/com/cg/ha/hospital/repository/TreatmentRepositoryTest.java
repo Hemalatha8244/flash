@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.cg.ha.hospital.entities.Patient;
 import com.cg.ha.hospital.entities.Treatment;
 /** Author
  * 
@@ -44,14 +45,14 @@ class TreatmentRepositoryTest {
 		treatment.setAdmittingDate("12-05-2007;");
 		treatment.setDischargeDate("20-05-2007");
 		treatment.setTreatmentReport("surgery");
+		
+		Treatment saveInDb = testEntityManager.persist(treatment);
+        
+        Treatment getInDb = treatmentRepository.findById(treatment.getTreatmentId()).get();
+        assertThat(getInDb).isEqualTo(saveInDb);
         
 
-        //Insert Data into in memory database
-		Treatment saveInDb = testEntityManager.persist(treatment);
-        //Get Data from DB
-		Treatment getInDb = treatmentRepository.findById(treatment.getTreatmentId()).get();
-        System.out.println(getInDb);
-        assertEquals(treatment.getTreatmentId(),1);
+        
     }
 	
 	 @Test

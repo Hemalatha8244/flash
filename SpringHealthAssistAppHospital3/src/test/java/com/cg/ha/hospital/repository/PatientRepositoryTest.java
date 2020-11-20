@@ -44,13 +44,10 @@ class PatientRepositoryTest {
         patient.setPatientAge(23);
         patient.setGender("female");
         
-
-        //Insert Data into in memory database
         Patient saveInDb = testEntityManager.persist(patient);
-        //Get Data from DB
+        
         Patient getInDb = patientRepository.findById(patient.getPatientId()).get();
-        System.out.println(getInDb);
-        assertEquals(patient.getPatientId(),1);
+        assertThat(getInDb).isEqualTo(saveInDb);
     }
 	
 	 @Test
@@ -145,7 +142,7 @@ class PatientRepositoryTest {
 	 
 	 private Patient getPatient() {
 			Patient patient=new Patient();
-			patient.setPatientName("hopper");
+			patient.setPatientName("hoppery");
 			patient.setPatientContactNumber("123456789");
 			patient.setPatientAge(20);
 	        patient.setGender("female");

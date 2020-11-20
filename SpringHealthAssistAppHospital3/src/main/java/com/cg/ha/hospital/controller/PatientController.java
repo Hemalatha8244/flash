@@ -18,7 +18,7 @@ import com.cg.ha.hospital.exception.ResourceNotFoundException;
 import com.cg.ha.hospital.service.PatientService;
 
 @RestController
-@RequestMapping("/patient")
+@RequestMapping("/api/v2")
 public class PatientController {
 	 @Autowired
 	    private PatientService patientService;
@@ -29,7 +29,7 @@ public class PatientController {
 	    }
 	 
 	 @PostMapping("/savePatient")
-		public Patient createPatient( @RequestBody Patient patient) {
+		public Patient savePatient( @RequestBody Patient patient) {
 			return patientService.savePatient(patient);
 		}
 	 
@@ -40,7 +40,7 @@ public class PatientController {
 		}
 	 
 	 @PutMapping("/updatePatient/{id}")
-		public ResponseEntity<Patient> updatePatient(@PathVariable(value = "id") Long patientId,
+		public ResponseEntity<Patient> updatePatientById(@PathVariable(value = "id") Long patientId,
 				 @RequestBody Patient patient) throws ResourceNotFoundException {
 			Patient patient1 = patientService.updatePatientById(patientId, patient);
 			return  ResponseEntity.ok(patient1);
